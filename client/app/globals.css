@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    scroll-behavior: smooth;
+  }
+
+  #root {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  button {
+    border: 2px solid;
+    padding: 10px;
+    font-weight: 700;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  button.mini {
+    font-size: 12pt;
+    border: none;
+    padding: 5px;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    transition: color 0.1s ease;
+  }
+
+  a span {
+    font-size: smaller;
+    margin: 2.5px;
+  }
+
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.wrap {
+  width: min(1280px, 90%);
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+.none {
+  display: none;
+}
+
+.typing-text {
+  overflow: hidden;
+  max-height: 256px;
+}
+
+.typing-text::-webkit-scrollbar {
+  width: 0;
+}
+
+.typing-text p {
+  font-size: 21px;
+  text-align: justify;
+  letter-spacing: 1px;
+  word-break: break-all;
+}
+
+.typing-text p span {
+  position: relative;
+}
+
+.typing-text p span.correct {
+  color: #d1d0c5;
+}
+
+.typing-text p span.incorrect {
+  color: #ca4754;
+  border-radius: 4px;
+}
+
+.typing-text p span.active::before {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  border-radius: 5px;
+  background: #ffffff;
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* Add line-through style */
+.line-through {
+  text-decoration: line-through;
+}
+
+@media (max-width: 745px) {
+  /* Add responsive styles here */
+}
+.word-wrapper-modal {
+  width: 80vw; /* Set width */
+  height: 50vh; /* Set height */
+  overflow-y: auto; /* Add scrollbar */
+}

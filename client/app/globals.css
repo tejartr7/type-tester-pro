@@ -121,4 +121,7 @@ a {
   width: 80vw; /* Set width */
   height: 50vh; /* Set height */
   overflow-y: auto; /* Add scrollbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

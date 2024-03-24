@@ -20,7 +20,7 @@ const WordWrapper = ({ children, focused, setFocused }: WordWrapperProps) => {
         </span>
       </div>
       <div
-        className={`relative mt-5 focus:border-0 focus:border-none focus:outline-none ${
+        className={`relative mt-5 flex justify-center focus:border-0 focus:border-none focus:outline-none ${
           focused ? 'blur-none' : 'cursor-pointer blur-md'
         } `}
         tabIndex={0}

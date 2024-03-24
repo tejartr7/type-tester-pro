@@ -32,7 +32,9 @@ export default async function Index() {
           style={{}}
         >
           <Timer />
+          <div className="flex justify-center">
             <WordWrapperModal />
+          </div>
         </main>
       </div>
     </>

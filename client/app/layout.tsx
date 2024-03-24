@@ -1,6 +1,8 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { Providers } from "@/app/Provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
@@ -20,7 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main>
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+            <SpeedInsights />
+            <Analytics />
+          </Providers>
         </main>
       </body>
     </html>

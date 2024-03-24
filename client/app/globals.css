@@ -118,7 +118,7 @@ a {
   /* Add responsive styles here */
 }
 .word-wrapper-modal {
-  width: 80vw; /* Set width */
+  width: 90vw; /* Set width */
   height: 50vh; /* Set height */
   overflow-y: auto; /* Add scrollbar */
 }

@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 import { IoIosCloseCircle } from "react-icons/io";
 import { Providers } from "@/app/Provider";
+
 type ModalProps = {
   type: string;
   isOpen: boolean;

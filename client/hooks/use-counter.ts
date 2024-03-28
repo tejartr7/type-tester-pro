@@ -1,4 +1,4 @@
-'use client'
+// 'useCounter' hook
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 export const useCounter = (initialValue: number, interval = 1000) => {
@@ -6,17 +6,18 @@ export const useCounter = (initialValue: number, interval = 1000) => {
   const intervalRef = useRef<number>();
 
   const startCounter = useCallback(() => {
-    if (intervalRef.current == undefined) return;
-    intervalRef.current = window.setInterval(() => {
-      setCounter((prev) => {
-        if (prev > 0) {
-          return prev - interval;
-        } else {
-          clearInterval(intervalRef.current!);
-          return prev;
-        }
-      });
-    }, interval);
+    if (intervalRef.current === undefined) {
+      intervalRef.current = window.setInterval(() => {
+        setCounter((prev) => {
+          if (prev > 0) {
+            return prev - interval;
+          } else {
+            clearInterval(intervalRef.current!);
+            return prev;
+          }
+        });
+      }, interval);
+    }
   }, [interval]);
 
   const resetCounter = useCallback(() => {

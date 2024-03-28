@@ -23,7 +23,7 @@ export default async function Index() {
   const isSupabaseConnected = canInitSupabaseClient();
 
   return (
-    <>
+    <div suppressHydrationWarning>
       <Navbar />
       <div className="flex">
         <div className="fixed top-0 left-0 right-0 z-10"></div>
@@ -37,6 +37,6 @@ export default async function Index() {
           </div>
         </main>
       </div>
-    </>
+    </div>
   );
 }

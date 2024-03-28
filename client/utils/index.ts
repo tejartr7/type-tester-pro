@@ -11,7 +11,6 @@ export const isAllowedCode = (code: string): boolean => {
   );
 };
 
-
 export const generateWord = (n: number): string => {
   return faker.word.words(n);
 };
@@ -23,6 +22,7 @@ export const calAccuracy = (expectedWord: string, typedWord: string) => {
       correctChars++;
     }
   }
+  
 
   const accuracyMetrics: AccuracyMetrics = {
     correctChars,
@@ -35,10 +35,17 @@ export const calAccuracy = (expectedWord: string, typedWord: string) => {
 export const calWPM = (
   typedWord: string,
   accuracy: number,
-  time: number
+  time: number,
+  expectedWord: string,
 ) => {
+  let correctChars = 0;
+  for (let i = 0; i < typedWord.length; i++) {
+    if (typedWord[i] === expectedWord[i]) {
+      correctChars++;
+    }
+  }
   const minutes = time / 60000;
-  const wordsTyped = typedWord.length / 5;
+  const wordsTyped =  correctChars / 5;
   const grossWPM = wordsTyped / minutes;
   const netWPM = Math.round(grossWPM * (accuracy / 100));
 
@@ -51,31 +58,4 @@ export const calWPM = (
 
 export const calErrorPercentage = (accuracy: number) => {
   return 100 - accuracy;
-};
-
-export const theme = {
-  blueDolphin: {
-    name: 'Blue Dolphin',
-    background: {
-      primary: '#003950',
-      secondary: '#014961',
-    },
-    text: {
-      primary: '#6DEAFF',
-      secondary: '#FFCEFB',
-      title: '#6DEAFF',
-    },
-  },
-  aurora: {
-    name: 'Aurora',
-    background: {
-      primary: '#011926',
-      secondary: '#000C13',
-    },
-    text: {
-      primary: '#235A68',
-      secondary: '#00E980',
-      title: '#00E980',
-    },
-  },
 };

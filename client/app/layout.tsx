@@ -19,16 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <main>
-          <Providers>
-            {children}
-            <SpeedInsights />
-            <Analytics />
-          </Providers>
-        </main>
-      </body>
+    <html lang="en" suppressHydrationWarning>
+      <Providers>
+        <div>
+          <body>
+            <main id="root">
+              {children}
+              <SpeedInsights />
+              <Analytics />
+            </main>
+          </body>
+        </div>
+      </Providers>
     </html>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useState, useEffect } from "react";
-import { useCounter } from "@/hooks/use-couter";
+import { useCounter } from "@/hooks/use-counter";
 import { useKeyDown } from "@/hooks/use-keydown";
 import { useLocalStorage } from "@/hooks/use-localstorage";
 import { useModal } from "@/hooks/useModal";
@@ -40,17 +40,6 @@ export const useSystem = () => {
     setTypingState,
   } = useKeyDown(wordContainerFocused);
   const { modalIsOpen, aboutModal, openModal, closeModal } = useModal();
-  useEffect(() => {
-    // Update word count based on time
-    setTime(getLocalStorageValue("time") || 30000);
-    console.log("time is " + time);
-    if (time === 60000) {
-      setWordCount(150);
-    } else if (time === 30000) {
-      setWordCount(80);
-    } else setWordCount(50);
-    console.log("word count is " + wordCount);
-  }, [time, wordCount]);
   const { word, updateWord, totalWord } = useWord(wordCount);
   const restartTest = useCallback(() => {
     resetCounter();
@@ -90,11 +79,11 @@ export const useSystem = () => {
     setTypingState("typing");
   }
 
-  if (counter === 0) {
+  if (Number(counter) === Number(0)) {
     const { accuracy } = calAccuracy(totalWord, totalCharacterTyped);
-    const { wpm, cpm } = calWPM(totalCharacterTyped, accuracy, time);
+    const { wpm, cpm } = calWPM(totalCharacterTyped, accuracy, time,totalWord);
     const error = calErrorPercentage(accuracy);
-
+    console.log("counter  value is " + counter);
     setResults({
       accuracy,
       wpm,

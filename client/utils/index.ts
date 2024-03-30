@@ -12,17 +12,18 @@ export const isAllowedCode = (code: string): boolean => {
 };
 
 export const generateWord = (n: number): string => {
-  return faker.word.words(n);
+  return faker.lorem.words(n);
 };
 
 export const calAccuracy = (expectedWord: string, typedWord: string) => {
+  console.log("expectedWord", expectedWord);
+  console.log("typedWord", typedWord);
   let correctChars = 0;
   for (let i = 0; i < typedWord.length; i++) {
     if (typedWord[i] === expectedWord[i]) {
       correctChars++;
     }
   }
-  
 
   const accuracyMetrics: AccuracyMetrics = {
     correctChars,
@@ -45,7 +46,7 @@ export const calWPM = (
     }
   }
   const minutes = time / 60000;
-  const wordsTyped =  correctChars / 5;
+  const wordsTyped = correctChars / 5;
   const grossWPM = wordsTyped / minutes;
   const netWPM = Math.round(grossWPM * (accuracy / 100));
 

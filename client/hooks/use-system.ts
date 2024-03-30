@@ -1,13 +1,11 @@
-"use client";
-import { useCallback, useState, useEffect } from "react";
+// hooks/useSystem.ts
+import { useCallback, useState } from "react";
 import { useCounter } from "@/hooks/use-counter";
 import { useKeyDown } from "@/hooks/use-keydown";
 import { useLocalStorage } from "@/hooks/use-localstorage";
 import { useModal } from "@/hooks/useModal";
 import { useWord } from "@/hooks/use-word";
-
 import { calWPM, calAccuracy, calErrorPercentage } from "@/utils/index";
-
 import type { Results, HistoryType } from "@/types/types";
 
 export const useSystem = () => {
@@ -27,8 +25,7 @@ export const useSystem = () => {
   const [wordContainerFocused, setWordContainerFocused] = useState(false);
   const [time, setTime] = useState(() => getLocalStorageValue("time") || 30000);
   const { counter, resetCounter, startCounter } = useCounter(time);
-  const [wordCount, setWordCount] = useState(50);
-
+  const { word, updateWord, totalWord } = useWord(50);
   const {
     charTyped,
     typingState,
@@ -40,7 +37,7 @@ export const useSystem = () => {
     setTypingState,
   } = useKeyDown(wordContainerFocused);
   const { modalIsOpen, aboutModal, openModal, closeModal } = useModal();
-  const { word, updateWord, totalWord } = useWord(wordCount);
+  
   const restartTest = useCallback(() => {
     resetCounter();
     updateWord(true);
@@ -80,10 +77,13 @@ export const useSystem = () => {
   }
 
   if (Number(counter) === Number(0)) {
-    const { accuracy } = calAccuracy(totalWord, totalCharacterTyped);
-    const { wpm, cpm } = calWPM(totalCharacterTyped, accuracy, time,totalWord);
+    console.log("totalWord", totalWord); 
+    console.log("totalCharacterTyped", totalCharacterTyped);
+    console.log("word is ", word);
+    const { accuracy } = calAccuracy(word, totalCharacterTyped);
+    const { wpm, cpm } = calWPM(totalCharacterTyped, accuracy, time, word);
     const error = calErrorPercentage(accuracy);
-    console.log("counter  value is " + counter);
+
     setResults({
       accuracy,
       wpm,

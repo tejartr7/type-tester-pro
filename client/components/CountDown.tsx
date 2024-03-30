@@ -1,4 +1,4 @@
-'use client'
+// Countdown.js
 import React, { useEffect, useState } from "react";
 import { useSystem } from "@/hooks/use-system";
 
@@ -6,8 +6,8 @@ const Countdown = () => {
   const { counter } = useSystem();
   const [remainingTime, setRemainingTime] = useState(counter);
 
-  // Update remainingTime every second
   useEffect(() => {
+    // Update remainingTime every second
     const intervalId = setInterval(() => {
       if (remainingTime > 0) {
         setRemainingTime((prevTime) => prevTime - 1000);
@@ -16,7 +16,7 @@ const Countdown = () => {
 
     // Clean up interval
     return () => clearInterval(intervalId);
-  }, [counter, remainingTime]); // Re-run effect when counter changes or remainingTime changes
+  }, [remainingTime]); // Re-run effect when remainingTime changes
 
   // Calculate formatted countdown
   const formattedCountdown = {

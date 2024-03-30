@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import WordWrapper from "@/components/WordWrapper";
 import { useSystem } from "@/hooks/use-system";
@@ -22,9 +22,9 @@ const WordWrapperModal = () => {
     results,
     history,
     counter,
-    resetCounter
+    resetCounter,
   } = useSystem();
-
+  // console.log("word is " + word);
   return (
     <div className="word-wrapper-modal">
       <Countdown />
@@ -47,4 +47,3 @@ const WordWrapperModal = () => {
 };
 
 export default WordWrapperModal;
-

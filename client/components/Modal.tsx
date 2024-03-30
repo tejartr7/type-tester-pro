@@ -1,7 +1,5 @@
 import Modal from "react-modal";
 import { IoIosCloseCircle } from "react-icons/io";
-import { Providers } from "@/app/Provider";
-
 type ModalProps = {
   type: string;
   isOpen: boolean;
@@ -19,7 +17,6 @@ const ModalComponent = ({
 }: ModalProps) => {
   return (
     <div>
-      <Providers>
         <Modal
           isOpen={isOpen}
           shouldCloseOnEsc={true}
@@ -37,7 +34,6 @@ const ModalComponent = ({
           </div>
           <div>{children}</div>
         </Modal>
-      </Providers>
     </div>
   );
 };

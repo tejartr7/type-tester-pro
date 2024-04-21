@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import styled from "styled-components";
 import { useClipboard } from "@/hooks/use-clipborad";
 import { useScreenShot } from "@/hooks/use-screenshot";
@@ -31,13 +31,13 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
   const { copyTextToClipboard } = useClipboard();
   const { ref, image, getImage } = useScreenShot();
   
-
+  useEffect(() => {
+    console.log("history is ");
+    console.log(history.typedHistory);
+  }, []);
   return (
     <div
       className='mx-auto flex h-full w-[95%] flex-col gap-10 pb-10 pt-8 font-mono'
-      style={{
-       
-      }}
     >
       <div
         ref={ref}
@@ -134,8 +134,8 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
             return (
               <Character
                 key={index + char}
-                character={history.wordHistory[index]}
-                state={history.wordHistory[index] === char} isCrossedOut={false}              />
+                character={history.typedHistory[index]}
+                state={history.typedHistory[index] === char} isCrossedOut={false}              />
             );
           })}
         </div>

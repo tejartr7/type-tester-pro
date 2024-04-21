@@ -1,5 +1,5 @@
 // hooks/useSystem.ts
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useCounter } from "@/hooks/use-counter";
 import { useKeyDown } from "@/hooks/use-keydown";
 import { useLocalStorage } from "@/hooks/use-localstorage";
@@ -37,7 +37,7 @@ export const useSystem = () => {
     setTypingState,
   } = useKeyDown(wordContainerFocused);
   const { modalIsOpen, aboutModal, openModal, closeModal } = useModal();
-  
+
   const restartTest = useCallback(() => {
     resetCounter();
     updateWord(true);
@@ -65,6 +65,10 @@ export const useSystem = () => {
     [charTyped, word]
   );
 
+  useEffect(() => {
+    console.log("history is ", history);
+  }, [history]);
+
   if (word.length === charTyped.length) {
     updateWord();
     resetCharTyped();
@@ -77,7 +81,7 @@ export const useSystem = () => {
   }
 
   if (Number(counter) === Number(0)) {
-    console.log("totalWord", totalWord); 
+    console.log("totalWord", totalWord);
     console.log("totalCharacterTyped", totalCharacterTyped);
     console.log("word is ", word);
     const { accuracy } = calAccuracy(word, totalCharacterTyped);

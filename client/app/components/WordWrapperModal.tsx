@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import WordWrapper from "@/components/WordWrapper";
 import { useSystem } from "@/hooks/use-system";
 import WordContainer from "@/components/WordContainer";
@@ -15,7 +15,6 @@ const WordWrapperModal = () => {
     wordContainerFocused,
     setWordContainerFocused,
     checkCharacter,
-    aboutModal,
     modalIsOpen,
     closeModal,
     time,
@@ -24,10 +23,12 @@ const WordWrapperModal = () => {
     counter,
     resetCounter,
   } = useSystem();
-  // console.log("word is " + word);
+  useEffect(() => {
+    console.log("counter value is " + counter);
+  }, []);
   return (
     <div className="word-wrapper-modal">
-      <Countdown />
+      <Countdown countdown={counter} reset={resetCounter} />
       <WordWrapper
         focused={wordContainerFocused}
         setFocused={setWordContainerFocused}

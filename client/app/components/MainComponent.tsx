@@ -1,0 +1,32 @@
+"use client";
+import { Navbar } from "@/components/Navbar";
+import WordWrapperModal from "@/app/components/WordWrapperModal";
+import Timer from "@/components/Timer";
+import { useSystem } from "@/hooks/use-system";
+const MainComponent = () => {
+  const { time, setTime, setLocalStorageValue, restartTest } = useSystem();
+  return (
+    <div>
+      <Navbar />
+      <div className="flex">
+        <div className="fixed top-0 left-0 right-0 z-10"></div>
+        <main
+          className=" mx-auto flex h-full max-w-5xl flex-col gap-4 px-4 xl:px-0"
+          style={{}}
+        >
+          <Timer
+            time={time}
+            setLocalStorage={setLocalStorageValue}
+            setTime={setTime}
+            restart={restartTest}
+          />
+          <div className="flex justify-center">
+            <WordWrapperModal countdown={counter} reset={resetCounter} />
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default MainComponent;

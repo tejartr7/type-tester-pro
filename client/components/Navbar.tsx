@@ -33,15 +33,11 @@ export const Navbar = () => {
           </a>
 
           <div className="sm:flex menu gap-5 flex none ">
-            <a className="text-white mx-5 flex items-center" href="#">
+            <a className="text-white mx-5 flex items-center" href="/">
               {" "}
               Home{" "}
             </a>
-            <a className="text-white mx-5 flex items-center" href="#">
-              {" "}
-              Developers{" "}
-            </a>
-            <a className="text-white mx-5 flex items-center" href="#">
+            <a className="text-white mx-5 flex items-center" href="/store">
               {" "}
               Store{" "}
             </a>

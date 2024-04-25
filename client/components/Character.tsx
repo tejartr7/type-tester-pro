@@ -3,7 +3,7 @@ import React from "react";
 type CharactersProps = {
   state?: boolean;
   character: string;
-  isCrossedOut: boolean; // Change prop name to isCrossedOut
+  isCrossedOut: boolean;
 };
 
 const Character = ({ state, character, isCrossedOut }: CharactersProps) => {

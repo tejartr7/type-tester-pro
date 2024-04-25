@@ -66,8 +66,8 @@ export const useSystem = () => {
   );
 
   useEffect(() => {
-    console.log("history is ", history);
-  }, [history]);
+    resetCounter(time);
+  }, [history, time, resetCounter]);
 
   if (word.length === charTyped.length) {
     updateWord();
@@ -81,9 +81,6 @@ export const useSystem = () => {
   }
 
   if (Number(counter) === Number(0)) {
-    console.log("totalWord", totalWord);
-    console.log("totalCharacterTyped", totalCharacterTyped);
-    console.log("word is ", word);
     const { accuracy } = calAccuracy(word, totalCharacterTyped);
     const { wpm, cpm } = calWPM(totalCharacterTyped, accuracy, time, word);
     const error = calErrorPercentage(accuracy);

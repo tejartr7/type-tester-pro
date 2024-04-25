@@ -1,72 +1,71 @@
-"use client";
-import { BiTimer } from "react-icons/bi";
-import { useSystem } from "@/hooks/use-system";
-import { useState } from "react";
-import Countdown from '@/components/CountDown';
-type TimerProps = {
+'use client'
+import { useContext } from 'react';
+
+import { BiTimer } from 'react-icons/bi';
+
+
+type TimeCategoryProps = {
   time: number;
   setTime: (value: number) => void;
+  setLocalStorage: (key: string, value: number) => void;
   restart: () => void;
 };
 
-export const Timer = () => {
-  const [showPallet, setShowPallet] = useState(false);
-
-  const {
-    charTyped,
-    counter,
-    word,
-    wordContainerFocused,
-    modalIsOpen,
-    aboutModal,
-    history,
-    time,
-    results,
-    resetCounter,
-    setLocalStorageValue,
-    setWordContainerFocused,
-    restartTest,
-    checkCharacter,
-    closeModal,
-    openModal,
-    setTime,
-  } = useSystem();
-
-  const handleTimeChange = (newTime: number) => {
-    setTime(newTime);
-    localStorage.setItem("time", newTime.toString());
-    restartTest();
-    window.location.reload();
-  };
+const TimeCategory = ({
+  time,
+  setTime,
+  restart,
+  setLocalStorage,
+}: TimeCategoryProps) => {
 
   return (
-    <div
-      className="flex items-center justify-center gap-3 mt-3"
-      suppressHydrationWarning
-    >
-      <BiTimer className="text-3xl" />
-      <div className="flex gap-4 rounded-lg">
+    <div className='flex items-center justify-center gap-3'>
+      <BiTimer className='text-3xl' />
+      <div
+        className='flex gap-4 rounded-lg'
+      >
         <span
           className={`category ${
-            time === 15000 ? "font-bold underline" : ""
+            time === 15000 ? 'font-bold underline' : ''
           } hover:underline`}
-          onClick={() => handleTimeChange(15000)}
+          onClick={() => {
+            setTime(15000);
+            setLocalStorage('time', 15000);
+            restart();
+          }}
+          style={{
+            color: time === 15000 ? 'text-decoration: underline' : '',
+          }}
         >
           15s
         </span>
         <span
           className={`category ${
-            time === 30000 ? "font-bold underline" : ""
+            time === 30000 ? 'font-bold underline' : ''
           } hover:underline`}
-          onClick={() => handleTimeChange(30000)}
+          onClick={() => {
+            setTime(30000);
+            setLocalStorage('time', 30000);
+            restart();
+          }}
+          style={{
+            color: time === 30000 ? 'text-decoration: underline' : '',
+          }}
         >
           30s
         </span>
         <span
           className={`category ${
-            time === 60000 ? "font-bold underline" : ""
+            time === 60000 ? 'font-bold underline' : ''
           } hover:underline`}
-          onClick={() => handleTimeChange(60000)}
+          onClick={() => {
+            setTime(60000);
+            setLocalStorage('time', 60000);
+            restart();
+          }}
+          style={{
+            color: time === 60000 ? 'text-decoration: underline' : '',
+          }}
         >
           60s
         </span>
@@ -75,4 +74,4 @@ export const Timer = () => {
   );
 };
 
-export default Timer;
+export default TimeCategory;

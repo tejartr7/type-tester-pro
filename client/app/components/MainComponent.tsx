@@ -21,7 +21,7 @@ const MainComponent = () => {
             restart={restartTest}
           />
           <div className="flex justify-center">
-            <WordWrapperModal countdown={counter} reset={resetCounter} />
+            <WordWrapperModal />
           </div>
         </main>
       </div>

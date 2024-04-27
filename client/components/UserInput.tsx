@@ -34,9 +34,8 @@ const UserInput = ({ check, charTyped, word }: UserInputProps) => {
 
   useEffect(() => {
     if (Number(timeLeft) === Number(1000)) {
-      console.log("Time is up");
+      
     } else if (Number(timeLeft) > Number(1000)) {
-      console.log(`Time left: ${timeLeft / 1000} seconds`);
     }
   }, [timeLeft]);
 

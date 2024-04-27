@@ -7,6 +7,7 @@ import UserInput from "@/components/UserInput";
 import ModalComponent from "@/components/Modal";
 import ModalContent from "@/components/ModelContainer";
 import Countdown from "@/components/CountDown";
+import Timer from "@/components/Timer";
 
 const WordWrapperModal = () => {
   const {
@@ -22,11 +23,23 @@ const WordWrapperModal = () => {
     history,
     counter,
     resetCounter,
-    theme
+    theme,
+    setLocalStorageValue,
+    setTime,
+    restartTest,
   } = useSystem();
   return (
     <div className="word-wrapper-modal">
-      <Countdown countdown={counter} reset={resetCounter} />
+      <Timer
+        time={time}
+        setLocalStorage={setLocalStorageValue}
+        setTime={setTime}
+        restart={restartTest}
+        resetCounter={resetCounter}
+        counter={counter}
+        theme={theme}
+      />
+      
       <WordWrapper
         focused={wordContainerFocused}
         setFocused={setWordContainerFocused}

@@ -1,7 +1,9 @@
+import { Navbar } from "@/components/Navbar";
+import { StoreModel } from "@/components/StoreModel";
 export default function Store() {
   return (
     <div>
-      <h1>Store</h1>
+      <StoreModel />
     </div>
   );
 }

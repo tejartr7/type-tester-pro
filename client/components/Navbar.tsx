@@ -41,10 +41,10 @@ export const Navbar = () => {
               {" "}
               Store{" "}
             </a>
-            <a className="text-white mx-5 flex items-center" href="#">
+            {/* <a className="text-white mx-5 flex items-center" href="#">
               {" "}
               Contact us{" "}
-            </a>
+            </a> */}
             <Button className="bg-white text-black hover:bg-black hover:text-white">
               <a href="/auth/register">Sign up</a>
             </Button>
@@ -78,17 +78,9 @@ export const Navbar = () => {
               {" "}
               Home{" "}
             </a>
-            <a onClick={menuClick} className="mx-5 text-white" href="#">
-              {" "}
-              Developers{" "}
-            </a>
-            <a onClick={menuClick} className="mx-5 text-white" href="#">
+            <a onClick={menuClick} className="mx-5 text-white" href="/store">
               {" "}
               Store{" "}
-            </a>
-            <a onClick={menuClick} className="mx-5 text-white" href="#">
-              {" "}
-              Contact us{" "}
             </a>
             <Button className="bg-white text-black hover:bg-black hover:text-white">
               <a href="/auth/register">Sign up</a>

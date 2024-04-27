@@ -3,13 +3,10 @@ import AuthButton from "../components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
 import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import MainComponent from "@/app/components/MainComponent";
+import MainComponent from "@/components/ui/MainComponent";
 
 export default async function Index() {
-  // const { systemTheme } = useThemeContext();
   const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
     try {
       createClient();
       return true;
@@ -17,9 +14,7 @@ export default async function Index() {
       return false;
     }
   };
-
   const isSupabaseConnected = canInitSupabaseClient();
-
   return (
     <div suppressHydrationWarning>
       <MainComponent />

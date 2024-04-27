@@ -22,10 +22,8 @@ const WordWrapperModal = () => {
     history,
     counter,
     resetCounter,
+    theme
   } = useSystem();
-  useEffect(() => {
-    console.log("counter value is " + counter);
-  }, []);
   return (
     <div className="word-wrapper-modal">
       <Countdown countdown={counter} reset={resetCounter} />
@@ -40,6 +38,7 @@ const WordWrapperModal = () => {
         type="result"
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
+        theme={theme}
       >
         <ModalContent totalTime={time} results={results} history={history} />
       </ModalComponent>

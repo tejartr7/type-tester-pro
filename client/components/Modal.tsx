@@ -1,3 +1,4 @@
+'use client'
 import Modal from "react-modal";
 import { IoIosCloseCircle } from "react-icons/io";
 import { useEffect, useState } from "react";
@@ -6,6 +7,7 @@ type ModalProps = {
   type: string;
   isOpen: boolean;
   onRequestClose: (str: string) => void;
+  theme: string;
   children: React.ReactNode;
 };
 
@@ -16,11 +18,8 @@ const ModalComponent = ({
   isOpen,
   onRequestClose,
   children,
+  theme
 }: ModalProps) => {
-  const [theme, setTheme] = useState<String>("dark");
-  useEffect(()=>{
-    setTheme(localStorage.getItem("theme") || "dark")
-  },[theme]);
   return (
     <div>
       <Modal

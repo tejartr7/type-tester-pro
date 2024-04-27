@@ -16,8 +16,6 @@ export const generateWord = (n: number): string => {
 };
 
 export const calAccuracy = (expectedWord: string, typedWord: string) => {
-  console.log("expectedWord", expectedWord);
-  console.log("typedWord", typedWord);
   let correctChars = 0;
   for (let i = 0; i < typedWord.length; i++) {
     if (typedWord[i] === expectedWord[i]) {

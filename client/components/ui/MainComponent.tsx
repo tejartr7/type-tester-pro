@@ -1,6 +1,6 @@
 "use client";
 import { Navbar } from "@/components/Navbar";
-import WordWrapperModal from "@/app/components/WordWrapperModal";
+import WordWrapperModal from "@/components/WordWrapperModal";
 import Timer from "@/components/Timer";
 import { useSystem } from "@/hooks/use-system";
 const MainComponent = () => {

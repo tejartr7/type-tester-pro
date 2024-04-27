@@ -26,6 +26,7 @@ export const useSystem = () => {
   const [time, setTime] = useState(() => getLocalStorageValue("time") || 30000);
   const { counter, resetCounter, startCounter } = useCounter(time);
   const { word, updateWord, totalWord } = useWord(50);
+  const [theme, setTheme] = useState("dark");
   const {
     charTyped,
     typingState,
@@ -67,7 +68,8 @@ export const useSystem = () => {
 
   useEffect(() => {
     resetCounter(time);
-  }, [history, time, resetCounter]);
+    setTheme(localStorage.getItem("theme") || "dark");
+  }, [theme,history, time, resetCounter]);
 
   if (word.length === charTyped.length) {
     updateWord();
@@ -121,5 +123,7 @@ export const useSystem = () => {
     checkCharacter,
     closeModal,
     openModal,
+    theme,
+    setTheme
   };
 };

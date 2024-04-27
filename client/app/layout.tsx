@@ -31,6 +31,10 @@ export default function RootLayout({
           </body>
         </div>
       </Providers>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5479697126684876"
+      ></script>
     </html>
   );
 }

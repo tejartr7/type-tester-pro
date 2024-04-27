@@ -19,10 +19,10 @@ export const useCounter = (initialValue: number) => {
   }, []);
 
   const resetCounter = useCallback((newTime: number = initialValue) => {
+    setCounter(newTime);
     if (!intervalRef.current) return;
     clearInterval(intervalRef.current);
     intervalRef.current = null;
-    setCounter(newTime);
   }, [initialValue]);
 
   useEffect(() => {

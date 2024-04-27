@@ -40,7 +40,7 @@ export const useSystem = () => {
   const { modalIsOpen, aboutModal, openModal, closeModal } = useModal();
 
   const restartTest = useCallback(() => {
-    resetCounter();
+    resetCounter(time);
     updateWord(true);
     resetCursorPointer();
     resetCharTyped();

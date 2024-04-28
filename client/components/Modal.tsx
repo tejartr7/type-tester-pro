@@ -1,7 +1,5 @@
-'use client'
 import Modal from "react-modal";
 import { IoIosCloseCircle } from "react-icons/io";
-import { useEffect, useState } from "react";
 
 type ModalProps = {
   type: string;
@@ -13,7 +11,7 @@ type ModalProps = {
 
 Modal.setAppElement("#root");
 
-const ModalComponent = ({
+const ModalComponent = async({
   type,
   isOpen,
   onRequestClose,

@@ -1,13 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { Button } from "@/components/ui/button";
 import { RiMenuFill as Menu, RiMenuFoldFill as Close } from "react-icons/ri";
 
-export const Navbar = () => {
-  const pathname = usePathname();
+interface NavbarProps {
+  user: any;
+}
+const Navbar = ({ user }: NavbarProps) => {
   const [toggle, setToggle] = useState(true);
   const [stick, setStick] = useState("");
 
@@ -21,6 +21,7 @@ export const Navbar = () => {
       setToggle(true);
     };
   }, []);
+
   return (
     <header
       className={`bg-black  w-[100vw] duration-200 ${stick}`}
@@ -41,16 +42,23 @@ export const Navbar = () => {
               {" "}
               Store{" "}
             </a>
-            {/* <a className="text-white mx-5 flex items-center" href="#">
-              {" "}
-              Contact us{" "}
-            </a> */}
-            <Button className="bg-white text-black hover:bg-black hover:text-white">
-              <a href="/auth/register">Sign up</a>
-            </Button>
-            <Button className="bg-white text-black hover:bg-black hover:text-white">
-              <a href="/auth/login">Login</a>
-            </Button>
+
+            {user ? (
+              <div>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/profile">profile</a>
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/signup">Sign up</a>
+                </Button>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/login">Login</a>
+                </Button>
+              </div>
+            )}
 
             <ThemeSwitch />
           </div>
@@ -94,3 +102,5 @@ export const Navbar = () => {
     </header>
   );
 };
+
+export default Navbar;

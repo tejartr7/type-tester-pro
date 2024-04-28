@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import WordWrapper from "@/components/WordWrapper";
 import { useSystem } from "@/hooks/use-system";
 import WordContainer from "@/components/WordContainer";
@@ -8,6 +7,10 @@ import ModalComponent from "@/components/Modal";
 import ModalContent from "@/components/ModelContainer";
 import Countdown from "@/components/CountDown";
 import Timer from "@/components/Timer";
+
+// interface WordWrapperModalProps {
+//   user:any
+// }
 
 const WordWrapperModal = () => {
   const {
@@ -47,14 +50,6 @@ const WordWrapperModal = () => {
         <WordContainer word={word} />
         <UserInput word={word} check={checkCharacter} charTyped={charTyped} />
       </WordWrapper>
-      <ModalComponent
-        type="result"
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        theme={theme}
-      >
-        <ModalContent totalTime={time} results={results} history={history} />
-      </ModalComponent>
     </div>
   );
 };

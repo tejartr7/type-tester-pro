@@ -14,10 +14,12 @@ export default async function ProtectedPage() {
   if (!user) {
     return redirect("/login");
   }
-
+  console.log(user);
   return (
   <div>
-    
+    <p>
+      Welcome to the protected page, {user.email}!
+    </p>
   </div>
   );
 }

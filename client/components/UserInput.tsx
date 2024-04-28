@@ -1,3 +1,4 @@
+'use client'
 import { useMemo, useEffect, useState } from "react";
 import Character from "@/components/Character";
 import { useSystem } from "@/hooks/use-system";

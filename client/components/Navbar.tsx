@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { Button } from "@/components/ui/button";
 import { RiMenuFill as Menu, RiMenuFoldFill as Close } from "react-icons/ri";
+import { createBrowserClient } from "@supabase/ssr";
 
 export const Navbar = () => {
   const pathname = usePathname();
   const [toggle, setToggle] = useState(true);
   const [stick, setStick] = useState("");
-
+  const [userData, setUserData] = useState({});
   const menuClick = () => {
     setToggle(!toggle);
   };
@@ -20,7 +21,17 @@ export const Navbar = () => {
       window.scrollY > 10 ? setStick(" py-3 , top-0 ") : setStick("py-2");
       setToggle(true);
     };
-  }, []);
+    const fetchUserData = async () => {
+      const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      const { data } = await supabase.auth.getUser();
+      setUserData(data);
+    };
+    fetchUserData();
+    //console.log("user", userData);
+  }, [userData]);
   return (
     <header
       className={`bg-black  w-[100vw] duration-200 ${stick}`}
@@ -45,12 +56,22 @@ export const Navbar = () => {
               {" "}
               Contact us{" "}
             </a> */}
-            <Button className="bg-white text-black hover:bg-black hover:text-white">
-              <a href="/auth/register">Sign up</a>
-            </Button>
-            <Button className="bg-white text-black hover:bg-black hover:text-white">
-              <a href="/auth/login">Login</a>
-            </Button>
+            {userData ? (
+              <div>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/profile">Profile</a>
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/signup">Sign up</a>
+                </Button>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/login">Login</a>
+                </Button>
+              </div>
+            )}
 
             <ThemeSwitch />
           </div>

@@ -15,7 +15,22 @@ export const Navbar = () => {
   const menuClick = () => {
     setToggle(!toggle);
   };
+  const handleSignout = async () => {
+    console.log("signout");
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
 
+    const { error } = await supabase.auth.signOut();
+    console.log("error", error);
+    if(error){
+      console.log(error);
+      return;
+    }
+    setUserData({});
+    window.location.href = "/";
+  };
   useEffect(() => {
     window.onscroll = () => {
       window.scrollY > 10 ? setStick(" py-3 , top-0 ") : setStick("py-2");
@@ -30,7 +45,7 @@ export const Navbar = () => {
       setUserData(data);
     };
     fetchUserData();
-    //console.log("user", userData);
+    //console.log(userData?.user);
   }, [userData]);
   return (
     <header
@@ -56,10 +71,16 @@ export const Navbar = () => {
               {" "}
               Contact us{" "}
             </a> */}
-            {userData ? (
+            {userData?.user ? (
               <div>
                 <Button className="bg-white text-black hover:bg-black hover:text-white">
                   <a href="/profile">Profile</a>
+                </Button>
+                <Button
+                  className="bg-white text-black hover:bg-black hover:text-white"
+                  onClick={handleSignout}
+                >
+                  Signout
                 </Button>
               </div>
             ) : (

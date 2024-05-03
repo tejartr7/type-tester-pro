@@ -5,6 +5,7 @@ export default async function Profile() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  console.log("user", user);
   return (
     <div className="flex font-poppins items-center justify-center w-screen h-screen">
       <div
@@ -36,6 +37,7 @@ export default async function Profile() {
           Back
         </Link>
         <p>Welcome to Type Tester Pro by RTR 🚀{user?.email}</p>
+        <p>Welcome to Type Tester Pro by RTR 🚀{user?.user_metadata?.username}</p>
       </div>
     </div>
   );

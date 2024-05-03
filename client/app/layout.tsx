@@ -20,6 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <script src="https://apis.google.com/js/api:client.js"></script>
       <Providers>
         <div>
           <body>

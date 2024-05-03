@@ -3,33 +3,85 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "@/app/login/submit-button";
+import axios from "axios";
+import { Button } from "@/components/ui/button";
+import GoogleProvider from "./GoogleProvider";
 
 export default function Login({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
+  async function handleSignInWithGoogle(response: any) {
+    const supabase = createClient();
+    const { data, error } = await supabase.auth.signInWithIdToken({
+      provider: "google",
+      token: response.credential,
+      nonce: "NONCE", // must be the same one as provided in data-nonce (if any)
+    });
+  }
+  const handleGoogleAuth = async () => {
+    "use server";
+    console.log("Signing in with Google");
+    const supabase = createClient();
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
+          //redirectTo: process.env.SUPABASE_URL,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // Handle successful authentication
+      console.log("Successfully authenticated with Google:", data.url);
+
+      const parts = data.url.split(".co");
+      const path = parts[1];
+      console.log("path", path);
+      const link = "/temp" + path;
+      console.log("link", link);
+      console.log(data.url);
+      return redirect(link);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   const signUp = async (formData: FormData) => {
     "use server";
-
+    const supabase = createClient();
     const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const supabase = createClient();
+    const username = formData.get("username") as string;
 
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: `${origin}/auth/callback`,
+        data: {
+          username: username,
+        },
       },
     });
-
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      const response = await axios.post("http://localhost:8000/register", {
+        email,
+        username,
+      });
+      return redirect("/login?message=Check email to continue sign in process");
     }
 
-    return redirect("/login?message=Check email to continue sign in process");
+    //return redirect("/login?message=Check email to continue sign in process");
   };
 
   return (
@@ -62,7 +114,7 @@ export default function Login({
           </svg>{" "}
           Back
         </Link>
-
+        <GoogleProvider text={"Sign Up"} />
         <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
           <label className="text-md" htmlFor="email">
             Email
@@ -71,6 +123,17 @@ export default function Login({
             className="rounded-md px-4 py-2 bg-inherit border mb-6"
             name="email"
             placeholder="you@example.com"
+            required
+          />
+          <label className="text-md" htmlFor="username">
+            {" "}
+            {/* New: Add label for username */}
+            Username
+          </label>
+          <input
+            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            name="username"
+            placeholder="Your Username"
             required
           />
           <label className="text-md" htmlFor="password">

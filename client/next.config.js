@@ -1,4 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-module.exports = nextConfig;
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: "/temp/:consent*",
+        destination: "https://yengmqycyifyofgvaqqp.supabase.co/:consent*",
+        permanent: false,
+      },
+    ];
+  },
+};

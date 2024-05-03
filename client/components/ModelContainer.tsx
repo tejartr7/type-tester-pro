@@ -97,19 +97,25 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
         </div>
 
         <div className="flex text-center justify-center items-center">
-          {userData ? (
+          {userData?.user ? (
             <div>
-              <Button className="font-bold bg-white text-black hover:bg-black hover:text-white">
-                <a href="/profile">Profile</a>
+              <Button className="font-bold bg-white text-black hover:bg-black hover:text-white"
+                size="lg"
+              >
+                <a href="/profile" className="font-bold text-2xl">Profile</a>
               </Button>
             </div>
           ) : (
             <div>
-              <Button className="bg-white text-black hover:bg-black hover:text-white">
-                <a href="/signup">Sign up</a>
+              <Button className="font-bold bg-white text-black hover:bg-black hover:text-white"
+                size="lg"
+              >
+                <a href="/signin" className="font-bold text-2xl">SignIn</a>
               </Button>
-              <Button className="bg-white text-black hover:bg-black hover:text-white">
-                <a href="/login">Login</a>
+              <Button className="font-bold bg-white text-black hover:bg-black hover:text-white"
+                size="lg"
+              >
+                <a href="/login" className="font-bold text-2xl">Login</a>
               </Button>
             </div>
           )}

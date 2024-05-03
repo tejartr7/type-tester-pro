@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
+import GoogleProvider from "../signup/GoogleProvider";
 
 export default function Login({
   searchParams,
@@ -58,7 +59,7 @@ export default function Login({
           </svg>{" "}
           Back
         </Link>
-
+        <GoogleProvider  text={"Login"}/>
         <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
           <label className="text-md" htmlFor="email">
             Email

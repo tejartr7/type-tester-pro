@@ -35,26 +35,17 @@ const GoogleProvider = ({ text }: GoogleProviderProps) => {
       console.log("data in google auth");
       console.log(data);
       setRedirectLink(data.url);
-      if (text === "signin") {
-        const response = await axios.post("http://localhost:8000/register", {
-          data: {
-            email: data?.email,
-            username: data?.user_metadata.full_name,
-          },
-        });
-      }
     } catch (error) {
       console.log("error", error);
     }
     console.log("redirectLink", redirectLink);
-    return (window.location.href = redirectLink);
   };
 
   return (
     <div>
       <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
         <SubmitButton
-          formAction={() => (window.location.href = redirectLink)}
+          formAction={handleGoogleAuth}
           className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2 flex items-center justify-center"
           pendingText="Signing Up..."
           style={{ borderRadius: "10px black solid" }}

@@ -73,11 +73,11 @@ export default function Login({
         },
       },
     });
+    const response = await axios.post("http://localhost:8000/register", {
+      email,
+      username,
+    });
     if (error) {
-      const response = await axios.post("http://localhost:8000/register", {
-        email,
-        username,
-      });
       return redirect("/login?message=Check email to continue sign in process");
     }
 

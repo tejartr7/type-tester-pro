@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useClipboard } from "@/hooks/use-clipborad";
 import { useScreenShot } from "@/hooks/use-screenshot";
@@ -27,11 +27,52 @@ const StyledCopyButton = styled.button`
 const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
   const [copied, setCopied] = useState(false);
   const [imageCopied, setImageCopied] = useState(false);
-
+  const [userData, setUserData] = useState({});
   const { copyTextToClipboard } = useClipboard();
   const { ref, image, getImage } = useScreenShot();
-  const [userData, setUserData] = useState({});
+  const [updated, setUpdated] = useState(false);
+  const mounted = useRef(false); // Ref to track component mounting
+
   useEffect(() => {
+    // Set the mounted flag to true when the component mounts
+    mounted.current = true;
+    return () => {
+      // Set the mounted flag to false when the component unmounts
+      mounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateUserStats = async (
+      speed: number,
+      accuracy: number,
+      time: number
+    ) => {
+      console.log("call sent to updated");
+      try {
+        const response = await fetch("http://localhost:8000/user/update", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userData?.user?.email,
+            speed,
+            accuracy,
+            time,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to update user stats");
+        }
+        setUpdated(true);
+      } catch (error) {
+        console.error("Error updating user stats:", error);
+      }
+    };
+
+    // Fetch user data
     const fetchUserData = async () => {
       const supabase = createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -40,8 +81,18 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
       const { data } = await supabase.auth.getUser();
       setUserData(data);
     };
-    fetchUserData();
+
+    // Fetch user data if it's not fetched yet
+    if (Object.keys(userData).length === 0) {
+      fetchUserData();
+    }
+
+    // Update user stats if userData is fetched and not updated yet
+    if (Object.keys(userData).length !== 0 && !updated) {
+      updateUserStats(results.wpm, results.accuracy, totalTime);
+    }
   }, [userData]);
+
   return (
     <div>
       <div className="mx-auto flex h-full w-[95%] flex-col gap-10 pb-10 pt-8 font-mono">
@@ -96,31 +147,42 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
           </div>
         </div>
 
+        {/* Profile or Sign In/Sign Up Buttons */}
         <div className="flex text-center justify-center items-center">
           {userData?.user ? (
             <div>
-              <Button className="font-bold bg-white text-black hover:bg-black hover:text-white"
+              <Button
+                className="font-bold bg-white text-black hover:bg-black hover:text-white"
                 size="lg"
               >
-                <a href="/profile" className="font-bold text-2xl">Profile</a>
+                <a href="/profile" className="font-bold text-2xl">
+                  Profile
+                </a>
               </Button>
             </div>
           ) : (
             <div>
-              <Button className="font-bold bg-white text-black hover:bg-black hover:text-white"
+              <Button
+                className="font-bold bg-white text-black hover:bg-black hover:text-white"
                 size="lg"
               >
-                <a href="/signin" className="font-bold text-2xl">SignIn</a>
+                <a href="/signin" className="font-bold text-2xl">
+                  SignIn
+                </a>
               </Button>
-              <Button className="font-bold bg-white text-black hover:bg-black hover:text-white"
+              <Button
+                className="font-bold bg-white text-black hover:bg-black hover:text-white"
                 size="lg"
               >
-                <a href="/login" className="font-bold text-2xl">Login</a>
+                <a href="/login" className="font-bold text-2xl">
+                  Login
+                </a>
               </Button>
             </div>
           )}
         </div>
 
+        {/* Screenshot Button */}
         <div className="flex flex-[1] flex-col px-5">
           <div
             className="group mt-auto flex cursor-pointer items-center gap-2 "
@@ -142,10 +204,13 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
               }
             }}
           >
+            {/* Camera Icon */}
             <FaCameraRetro className=" text-xl" />
             <span className="text-lg hover:underline">
               Screenshot your results and share to your friends🔥
             </span>
+
+            {/* Image Copied Confirmation */}
             <div className="rounded-md" style={{}}>
               {imageCopied === true ? (
                 <span className="p-5 text-center" style={{}}>

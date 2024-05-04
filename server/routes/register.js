@@ -1,14 +1,17 @@
 import express from "express";
 import mongoose from "mongoose";
 import UserSchema from "../schema/userSchema.js"; 
-const router = express.Router();
+const registerRouter = express.Router();
 
-router.post("/", async (req, res) => {
+registerRouter.post("/", async (req, res) => {
   try {
     const { username, email } = req.body;
     console.log("request body is ");
     console.log(req.body);
-    // Create a new user instance with default values for typing speed, etc.
+    const existingUser = await UserSchema.findOne({ email });
+    if(existingUser) {
+      return res.status(200).send("User already exists");
+    }
     const newUser = new UserSchema({
       username,
       email,
@@ -20,10 +23,10 @@ router.post("/", async (req, res) => {
       totalTime: 0, 
     });
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser); 
+    res.status(201).send("user created"); 
   } catch (error) {
     res.status(400).send(error.message); 
   }
 });
 
-export default router;
+export default registerRouter;

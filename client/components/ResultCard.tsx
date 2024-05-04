@@ -1,5 +1,5 @@
 
-import Tooltip from '@/components/Tooltop';
+import Tooltip from '@/components/Tooltip';
 
 type ResultCardProps = {
   tooltipId: string;

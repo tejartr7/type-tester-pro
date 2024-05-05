@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { createBrowserClient } from "@supabase/ssr";
 import Tooltip from "@/components/Tooltip";
-
+import { ReactNode } from "react";
 const ProfileCard = () => {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -94,7 +94,7 @@ const ProfileCard = () => {
                         data-tooltip-place="bottom-end"
                       >
                         <h2 className="text-3xl">{key}</h2>
-                        <p className="text-center text-2xl">{displayValue}</p>
+                        <p className="text-center text-2xl">{displayValue as ReactNode}</p>
                       </div>
                     </Tooltip>
                   );

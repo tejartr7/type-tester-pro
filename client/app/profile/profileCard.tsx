@@ -6,8 +6,8 @@ import { createBrowserClient } from "@supabase/ssr";
 import Tooltip from "@/components/Tooltip";
 
 const ProfileCard = () => {
-  const [userData, setUserData] = useState([]);
-  const [loading, setLoading] = useState(true); // State to track loading status
+  const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,8 +52,8 @@ const ProfileCard = () => {
     <div className="flex p-2 items-center justify-center">
       {loading ? ( // Show loading indicator if data is still being fetched
         <div
-        className="flex items-center text-bold justify-center w-full h-96 text-3xl"
-        >Fetching data,please wait...</div>
+        className="flex items-center justify-center w-full h-96 text-3xl"
+        >Fetching dataplease wait...</div>
       ) : (
         <div
           className="flex-col items-center justify-center w-full max-w-screen-lg mx-auto"
@@ -83,7 +83,7 @@ const ProfileCard = () => {
                   } else if (key === "accuracy") {
                     displayValue = `${value}%`;
                   } else if (key === "totalTime") {
-                    displayValue = formatTime(value);
+                    displayValue = formatTime(Number(value));
                   }
                   return (
                     <Tooltip key={key} tooltipId={key}>

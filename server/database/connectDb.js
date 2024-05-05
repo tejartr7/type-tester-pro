@@ -6,7 +6,6 @@ const connectDb= (url) => {
   
   // Connect to MongoDB using the provided URL
   mongoose.connect(url, {
-    useNewUrlParser: true, // Use new URL parser
     useUnifiedTopology: true, // Use new server discovery and monitoring engine
   })
   .then(() => console.log('Connected to MongoDB'))

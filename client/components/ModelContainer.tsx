@@ -34,15 +34,6 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
   const mounted = useRef(false); // Ref to track component mounting
 
   useEffect(() => {
-    // Set the mounted flag to true when the component mounts
-    mounted.current = true;
-    return () => {
-      // Set the mounted flag to false when the component unmounts
-      mounted.current = false;
-    };
-  }, []);
-
-  useEffect(() => {
     const updateUserStats = async (
       speed: number,
       accuracy: number,
@@ -50,19 +41,24 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
     ) => {
       console.log("call sent to updated");
       try {
-        const response = await fetch("http://localhost:8000/user/update", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: userData?.user?.email,
-            speed,
-            accuracy,
-            time,
-          }),
-        });
-
+        const response = await fetch(
+          "https://type-tester-pro.onrender.com/user/update",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: userData?.user?.email,
+              speed,
+              accuracy,
+              time,
+            }),
+          }
+        );
+        setUpdated(true);
+        console.log("model response is ");
+        console.log(response);
         if (!response.ok) {
           throw new Error("Failed to update user stats");
         }
@@ -86,12 +82,11 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
     if (Object.keys(userData).length === 0) {
       fetchUserData();
     }
-
-    // Update user stats if userData is fetched and not updated yet
     if (Object.keys(userData).length !== 0 && !updated) {
       updateUserStats(results.wpm, results.accuracy, totalTime);
     }
-  }, [userData]);
+    // Update user stats if userData is fetched and not updated yet
+  }, [userData, updated]);
 
   return (
     <div>
@@ -166,8 +161,8 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
                 className="font-bold bg-white text-black hover:bg-black hover:text-white"
                 size="lg"
               >
-                <a href="/signin" className="font-bold text-2xl">
-                  SignIn
+                <a href="/signup" className="font-bold text-2xl">
+                  SignUp
                 </a>
               </Button>
               <Button

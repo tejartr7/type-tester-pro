@@ -73,7 +73,7 @@ export default function Login({
         },
       },
     });
-    const response = await axios.post("http://localhost:8000/register", {
+    const response = await axios.post("https://type-tester-pro.onrender.com/register", {
       email,
       username,
     });

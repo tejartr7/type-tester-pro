@@ -116,7 +116,7 @@ export const Navbar = () => {
               toggle ? "max-h-0" : "max-h-full "
             } menu gap-5 flex fixed w-[100%] flex-col top-[60px] left-0 bg-black duration-300`}
           >
-            <a onClick={menuClick} className="mx-5 mt-5 text-white" href="#">
+            <a onClick={menuClick} className="mx-5 mt-5 text-white" href="/">
               {" "}
               Home{" "}
             </a>

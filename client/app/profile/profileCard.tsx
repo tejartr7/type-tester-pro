@@ -1,10 +1,18 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { createBrowserClient } from "@supabase/ssr";
 import Tooltip from "@/components/Tooltip";
 import { ReactNode } from "react";
+import { HiOutlineClock, HiOutlineDocumentText } from "react-icons/hi";
+import {
+  IoMdSpeedometer,
+  IoMdMail,
+  IoMdPerson,
+  IoMdCheckmarkCircleOutline,
+} from "react-icons/io";
+
 const ProfileCard = () => {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -17,15 +25,12 @@ const ProfileCard = () => {
       );
       const { data } = await supabase.auth.getUser();
 
-      const response = await axios.get(
-        "https://type-tester-pro.onrender.com/user",
-        {
-          params: {
-            email: data?.user?.email || "",
-            username: data?.user?.user_metadata?.name || "",
-          },
-        }
-      );
+      const response = await axios.get("http://localhost:8000/user", {
+        params: {
+          email: data?.user?.email || "",
+          username: data?.user?.user_metadata?.name || "",
+        },
+      });
       const filteredUserData = Object.fromEntries(
         Object.entries(response.data).filter(
           ([key]) => key !== "_id" && key !== "__v"
@@ -51,25 +56,14 @@ const ProfileCard = () => {
   return (
     <div className="flex p-2 items-center justify-center">
       {loading ? ( // Show loading indicator if data is still being fetched
-        <div
-        className="flex items-center justify-center w-full h-96 text-3xl"
-        >Fetching dataplease wait...</div>
+        <div className="flex items-center justify-center w-full h-96 text-3xl">
+          Fetching data, please wait...
+        </div>
       ) : (
-        <div
-          className="flex-col items-center justify-center w-full max-w-screen-lg mx-auto"
-          style={{
-            border: "5px solid #555",
-            borderRadius: "10px",
-          }}
-        >
+        <div className="flex-col items-center justify-center w-full max-w-screen-lg mx-auto">
           <motion.div
-            whileHover={{
-              y: -8,
-            }}
-            transition={{
-              type: "spring",
-              bounce: 0.7,
-            }}
+            whileHover={{ y: -8 }}
+            transition={{ type: "spring", bounce: 0.7 }}
             className="mt-5 text-left"
           >
             <h1 className="text-center text-4xl">Your Profile Data...</h1>
@@ -85,16 +79,40 @@ const ProfileCard = () => {
                   } else if (key === "totalTime") {
                     displayValue = formatTime(Number(value));
                   }
+
+                  // Choose icon for each stat
+                  let icon;
+                  if (key === "averageSpeed" || key === "highestSpeed") {
+                    icon = <IoMdSpeedometer className="text-4xl" />;
+                  } else if (key === "totalTime") {
+                    icon = <HiOutlineClock className="text-4xl" />;
+                  } else if (key === "email") {
+                    icon = <IoMdMail className="text-4xl" />;
+                  } else if (key === "username") {
+                    icon = <IoMdPerson className="text-4xl" />;
+                  } else if (key === "accuracy") {
+                    icon = <IoMdCheckmarkCircleOutline className="text-4xl" />;
+                  } else {
+                    icon = <HiOutlineDocumentText className="text-4xl" />;
+                  }
+
                   return (
                     <Tooltip key={key} tooltipId={key}>
                       <div
-                        className="flex flex-col items-center justify-center gap-2 rounded-lg p-5"
+                        className="flex flex-col items-center justify-center gap-2 rounded-lg p-5 border border-gray-300"
                         data-tooltip-content={key}
                         data-tooltip-id={key}
                         data-tooltip-place="bottom-end"
                       >
-                        <h2 className="text-3xl">{key}</h2>
-                        <p className="text-center text-2xl">{displayValue as ReactNode}</p>
+                        <h2 className="text-3xl font-bold">{key}</h2>
+                        <div className="flex items-center justify-center flex-col">
+                          {" "}
+                          {/* Changed */}
+                          {icon}
+                          <p className="text-center text-lg text-gray-600">
+                            {displayValue as ReactNode}
+                          </p>
+                        </div>
                       </div>
                     </Tooltip>
                   );

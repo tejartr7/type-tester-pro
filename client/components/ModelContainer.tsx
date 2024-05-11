@@ -41,21 +41,18 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
     ) => {
       console.log("call sent to updated");
       try {
-        const response = await fetch(
-          "https://type-tester-pro.onrender.com/user/update",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: userData?.user?.email,
-              speed,
-              accuracy,
-              time,
-            }),
-          }
-        );
+        const response = await fetch("http://localhost:8000/user/update", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userData?.user?.email,
+            speed,
+            accuracy,
+            time,
+          }),
+        });
         setUpdated(true);
         console.log("model response is ");
         console.log(response);
@@ -156,23 +153,8 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
               </Button>
             </div>
           ) : (
-            <div>
-              <Button
-                className="font-bold bg-white text-black hover:bg-black hover:text-white"
-                size="lg"
-              >
-                <a href="/signup" className="font-bold text-2xl">
-                  SignUp
-                </a>
-              </Button>
-              <Button
-                className="font-bold bg-white text-black hover:bg-black hover:text-white"
-                size="lg"
-              >
-                <a href="/login" className="font-bold text-2xl">
-                  Login
-                </a>
-              </Button>
+            <div className="text-center">
+              <p className="text-3xl font-bold">Please SignUp/Login to save your progress!!</p>
             </div>
           )}
         </div>

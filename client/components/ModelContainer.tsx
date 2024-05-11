@@ -42,9 +42,7 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
       );
       const { data } = await supabase.auth.getUser();
-      setUserData(data);
-      console.log("Data of the user is ");
-      console.log(data.user?.email);
+      setUserData(data.user || {});
       setEmail(data.user?.email || "");
     };
     const updateUserStats = async (
@@ -67,8 +65,6 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
           }),
         });
         setUpdated(true);
-        console.log("model response is ");
-        console.log(response);
         if (!response.ok) {
           throw new Error("Failed to update user stats");
         }
@@ -143,7 +139,7 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
 
         {/* Profile or Sign In/Sign Up Buttons */}
         <div className="flex text-center justify-center items-center">
-          {userData?.user ? (
+          {Object.keys(userData).length!=0 ? (
             <div>
               <Button
                 className="font-bold bg-white text-black hover:bg-black hover:text-white"

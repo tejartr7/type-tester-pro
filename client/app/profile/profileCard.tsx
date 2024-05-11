@@ -109,7 +109,7 @@ const ProfileCard = () => {
                           {" "}
                           {/* Changed */}
                           {icon}
-                          <p className="text-center text-lg text-gray-600">
+                          <p className="text-center text-lg text-gray-300">
                             {displayValue as ReactNode}
                           </p>
                         </div>

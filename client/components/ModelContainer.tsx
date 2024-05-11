@@ -31,9 +31,22 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
   const { copyTextToClipboard } = useClipboard();
   const { ref, image, getImage } = useScreenShot();
   const [updated, setUpdated] = useState(false);
+  const [email, setEmail] = useState("");
   const mounted = useRef(false); // Ref to track component mounting
 
   useEffect(() => {
+    // Fetch user data
+    const fetchUserData = async () => {
+      const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      const { data } = await supabase.auth.getUser();
+      setUserData(data);
+      console.log("Data of the user is ");
+      console.log(data.user?.email);
+      setEmail(data.user?.email || "");
+    };
     const updateUserStats = async (
       speed: number,
       accuracy: number,
@@ -47,7 +60,7 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: userData?.user?.email,
+            email: email,
             speed,
             accuracy,
             time,
@@ -64,17 +77,6 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
         console.error("Error updating user stats:", error);
       }
     };
-
-    // Fetch user data
-    const fetchUserData = async () => {
-      const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
-      const { data } = await supabase.auth.getUser();
-      setUserData(data);
-    };
-
     // Fetch user data if it's not fetched yet
     if (Object.keys(userData).length === 0) {
       fetchUserData();
@@ -154,7 +156,9 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
             </div>
           ) : (
             <div className="text-center">
-              <p className="text-3xl font-bold">Please SignUp/Login to save your progress!!</p>
+              <p className="text-3xl font-bold">
+                Please SignUp/Login to save your progress!!
+              </p>
             </div>
           )}
         </div>

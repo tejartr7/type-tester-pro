@@ -7,7 +7,7 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import GoogleProvider from "./GoogleProvider";
 
-export default function Signup({
+export default function ({
   searchParams,
 }: {
   searchParams: { message: string };

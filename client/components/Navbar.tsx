@@ -42,7 +42,7 @@ export const Navbar = () => {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
       );
       const { data } = await supabase.auth.getUser();
-      setUserData(data);
+      setUserData(data.user ||{});
     };
     fetchUserData();
     //console.log(userData?.user);
@@ -71,7 +71,7 @@ export const Navbar = () => {
               {" "}
               Contact us{" "}
             </a> */}
-            {userData?.user ? (
+            {Object.keys(userData).length!=0 ? (
               <div>
                 <Button className="bg-white text-black hover:bg-black hover:text-white">
                   <a href="/profile">Profile</a>

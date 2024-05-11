@@ -25,7 +25,7 @@ const GoogleProvider = ({ text }: GoogleProviderProps) => {
             access_type: "offline",
             prompt: "consent",
           },
-          redirectTo: process.env.SUPABASE_URL,
+          // redirectTo: process.env.SUPABASE_URL,
         },
       });
 

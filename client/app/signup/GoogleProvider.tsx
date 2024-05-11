@@ -35,6 +35,7 @@ const GoogleProvider = ({ text }: GoogleProviderProps) => {
       console.log("data in google auth");
       console.log(data);
       setRedirectLink(data.url);
+      console.log(data);
     } catch (error) {
       console.log("error", error);
     }

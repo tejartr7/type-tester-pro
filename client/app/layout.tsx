@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <script src="https://apis.google.com/js/api:client.js"></script>
+      <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
       <Providers>
         <div>
           <body>

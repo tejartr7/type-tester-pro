@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="flex flex-col items-center justify-center bg-zinc-50 text-center text-surface dark:bg-neutral-700 dark:text-white mt-auto">
-      <div className="container pt-9">
+      <div className="container pt-2">
         <div className="flex justify-center space-x-2">
           <a
             href="https://www.facebook.com/profile.php?id=61555388690225"
@@ -56,7 +56,7 @@ const Footer = () => {
       <div className="w-full bg-black/5 p-4">
         Made by {" "}
         <u>
-          <a href="https://www.instagram.com/weblancerdev/">WebLancerDevv</a>
+          <a href="https://www.instagram.com/weblancerdev/">WebLancerDev</a>
         </u>
       </div>
     </footer>

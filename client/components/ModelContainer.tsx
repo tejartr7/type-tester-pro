@@ -182,7 +182,7 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
             }}
           >
             {/* Camera Icon */}
-            <FaCameraRetro className=" text-xl" />
+            <FaCameraRetro size={"25"} className="text-4xl lg:text-xl" />
             <span className="text-lg hover:underline">
               Screenshot your results and share to your friends🔥
             </span>

@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState, useRef } from "react";
+import { useMemo, useEffect, useState } from "react";
 import Character from "@/components/Character";
 import { useSystem } from "@/hooks/use-system";
 
@@ -11,7 +11,6 @@ type UserInputProps = {
 const UserInput = ({ check, charTyped, word }: UserInputProps) => {
   const { time } = useSystem();
   const [timeLeft, setTimeLeft] = useState<number>(time);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const characters = useMemo(() => {
     return charTyped.split("");
@@ -40,13 +39,6 @@ const UserInput = ({ check, charTyped, word }: UserInputProps) => {
     }
   }, [timeLeft]);
 
-  useEffect(() => {
-    // Focus the input field when the component mounts or when timeLeft changes
-    if (inputRef.current && Number(timeLeft) !== 1000) {
-      inputRef.current.focus();
-    }
-  }, [timeLeft]);
-
   return (
     <div className="md:character absolute left-0 top-0 z-10 break-all text-xl lg:text-2xl">
       {characters.map((_, index) => {
@@ -60,11 +52,9 @@ const UserInput = ({ check, charTyped, word }: UserInputProps) => {
           />
         );
       })}
-      {/* Render the input field */}
       <input
-        ref={inputRef}
         type="text"
-        className="block w-full"
+        className="hidden"
         onKeyDown={handleKeyDown}
         autoFocus
         disabled={Number(timeLeft) === Number(1000)}

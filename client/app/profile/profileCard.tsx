@@ -25,7 +25,7 @@ const ProfileCard = () => {
       );
       const { data } = await supabase.auth.getUser();
 
-      const response = await axios.get("http://localhost:8000/user", {
+      const response = await axios.get("https://type-tester-pro.onrender.com/user", {
         params: {
           email: data?.user?.email || "",
           username: data?.user?.user_metadata?.name || "",

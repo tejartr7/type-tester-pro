@@ -5,9 +5,7 @@ export default function Profile() {
   return (
     <div>
       <Navbar />
-      <div className="flex font-poppins items-center justify-center">
-        <ProfileCard />
-      </div>
+      <ProfileCard />
     </div>
   );
 }

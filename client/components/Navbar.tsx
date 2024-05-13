@@ -24,7 +24,7 @@ export const Navbar = () => {
 
     const { error } = await supabase.auth.signOut();
     console.log("error", error);
-    if(error){
+    if (error) {
       console.log(error);
       return;
     }
@@ -42,7 +42,7 @@ export const Navbar = () => {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
       );
       const { data } = await supabase.auth.getUser();
-      setUserData(data.user ||{});
+      setUserData(data.user || {});
     };
     fetchUserData();
     //console.log(userData?.user);
@@ -54,7 +54,7 @@ export const Navbar = () => {
     >
       <div className="wrap">
         <nav className="flex justify-between items-center">
-          <a href="#" className="logo text-white font-bebas text-3xl">
+          <a href="/" className="logo text-white font-bebas text-3xl">
             Type Tester Pro
           </a>
 
@@ -71,7 +71,7 @@ export const Navbar = () => {
               {" "}
               Contact us{" "}
             </a> */}
-            {Object.keys(userData).length!=0 ? (
+            {Object.keys(userData).length != 0 ? (
               <div>
                 <Button className="bg-white text-black hover:bg-black hover:text-white">
                   <a href="/profile">Profile</a>
@@ -124,12 +124,28 @@ export const Navbar = () => {
               {" "}
               Store{" "}
             </a>
-            <Button className="bg-white text-black hover:bg-black hover:text-white">
-              <a href="/auth/register">Sign up</a>
-            </Button>
-            <Button className="bg-white text-black hover:bg-black hover:text-white">
-              <a href="/auth/login">Login</a>
-            </Button>
+            {Object.keys(userData).length != 0 ? (
+              <div>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/profile">Profile</a>
+                </Button>
+                <Button
+                  className="bg-white text-black hover:bg-black hover:text-white"
+                  onClick={handleSignout}
+                >
+                  Signout
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/signup">Sign up</a>
+                </Button>
+                <Button className="bg-white text-black hover:bg-black hover:text-white">
+                  <a href="/login">Login</a>
+                </Button>
+              </div>
+            )}
           </div>
         </nav>
       </div>

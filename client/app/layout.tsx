@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
-  title: "Type Tester Pro By RTR",
+  title: "Type Tester Pro By WebLancerDev",
   description: "Ace your typing skills with Type Tester Pro ⌨️",
 };
 

@@ -14,13 +14,13 @@ const WordWrapper = ({ children, focused, setFocused }: WordWrapperProps) => {
     const handleResize = () => {
       setIsSmallDevice(window.innerWidth < 768);
     };
-
+    console.log("window width is " + window.innerWidth);
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isSmallDevice]);
 
   return (
     <>

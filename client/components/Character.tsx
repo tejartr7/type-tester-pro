@@ -9,7 +9,7 @@ type CharactersProps = {
 const Character = ({ state, character, isCrossedOut }: CharactersProps) => {
   return (
     <span
-      className={`${state ? 'active' : ''} ${isCrossedOut ? 'line-through' : ''}`} // Apply line-through class conditionally
+      className={`${state === undefined ? '' : state ? 'text-green-500' : 'text-red-500'}`}
     >
       {character}
     </span>

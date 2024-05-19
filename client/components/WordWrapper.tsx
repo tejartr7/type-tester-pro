@@ -8,19 +8,22 @@ type WordWrapperProps = {
 };
 
 const WordWrapper = ({ children, focused, setFocused }: WordWrapperProps) => {
-  const [isSmallDevice, setIsSmallDevice] = useState(true);
+  const [isSmallDevice, setIsSmallDevice] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setIsSmallDevice(window.innerWidth < 500);
     };
-    console.log("window width is " + window.innerWidth);
+
+    // Initial check on mount
+    handleResize();
+
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isSmallDevice]);
+  }, []);
 
   return (
     <>
@@ -39,9 +42,7 @@ const WordWrapper = ({ children, focused, setFocused }: WordWrapperProps) => {
             } flex items-center justify-center gap-3 transition-all duration-500 `}
           >
             <MdCenterFocusStrong className="text-center text-2xl" />
-            <span className={`text-center text-lg `}>
-              Focus to start typing
-            </span>
+            <span className="text-center text-lg">Focus to start typing</span>
           </div>
           <div
             className={`relative mt-5 flex justify-center focus:border-0 focus:border-none focus:outline-none ${

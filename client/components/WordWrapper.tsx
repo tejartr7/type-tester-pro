@@ -8,7 +8,7 @@ type WordWrapperProps = {
 };
 
 const WordWrapper = ({ children, focused, setFocused }: WordWrapperProps) => {
-  const [isSmallDevice, setIsSmallDevice] = useState(false);
+  const [isSmallDevice, setIsSmallDevice] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {

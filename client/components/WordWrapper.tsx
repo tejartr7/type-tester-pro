@@ -8,11 +8,11 @@ type WordWrapperProps = {
 };
 
 const WordWrapper = ({ children, focused, setFocused }: WordWrapperProps) => {
-  const [isSmallDevice, setIsSmallDevice] = useState(false);
+  const [isSmallDevice, setIsSmallDevice] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallDevice(window.innerWidth < 768);
+      setIsSmallDevice(window.innerWidth < 500);
     };
     console.log("window width is " + window.innerWidth);
     window.addEventListener("resize", handleResize);

@@ -1,6 +1,5 @@
 import { MdCenterFocusStrong } from "react-icons/md";
 import { useState, useEffect } from "react";
-import { useDetectDevice } from "@/hooks/useDetectScreen";
 
 type WordWrapperProps = {
   children: React.ReactNode;
@@ -9,7 +8,20 @@ type WordWrapperProps = {
 };
 
 const WordWrapper = ({ children, focused, setFocused }: WordWrapperProps) => {
-  const isSmallDevice = useDetectDevice();
+  const [isSmallDevice, setIsSmallDevice] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallDevice(window.innerWidth < 768);
+    };
+    console.log("window width is " + window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isSmallDevice]);
+
   return (
     <>
       {isSmallDevice ? (

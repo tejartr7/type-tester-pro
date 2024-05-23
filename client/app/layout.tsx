@@ -9,7 +9,6 @@ export const metadata = {
   description: "Ace your typing skills with Type Tester Pro ⌨️",
 };
 
-
 export default function RootLayout({
   children,
 }: {
@@ -18,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <script src="https://apis.google.com/js/api:client.js"></script>
-      <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+      <script
+        async
+        defer
+        src="https://scripts.simpleanalyticscdn.com/latest.js"
+      ></script>
       <Providers>
         <div>
           <body>
@@ -38,6 +41,10 @@ export default function RootLayout({
       <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-L73PDPC6T6"
+      ></script>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5479697126684876"
       ></script>
     </html>
   );

@@ -1,5 +1,4 @@
-import { faker } from '@faker-js/faker';
-
+import { generate} from "random-words";
 import { AccuracyMetrics } from '@/types/types';
 
 export const isAllowedCode = (code: string): boolean => {
@@ -12,7 +11,12 @@ export const isAllowedCode = (code: string): boolean => {
 };
 
 export const generateWord = (n: number): string => {
-  return faker.lorem.words(n);
+  const words = generate(n);
+  var word = "";
+  for(var i = 0; i < words.length; i++){
+    word += words[i] + " ";
+  }
+  return word;
 };
 
 export const calAccuracy = (expectedWord: string, typedWord: string) => {

@@ -119,7 +119,7 @@ a {
 }
 .word-wrapper-modal {
   width: 90vw; /* Set width */
-  height: 50vh; /* Set height */
+  height: 70vh; /* Set height */
   overflow-y: auto; /* Add scrollbar */
 }
 

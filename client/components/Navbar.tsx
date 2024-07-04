@@ -63,10 +63,10 @@ export const Navbar = () => {
               {" "}
               Home{" "}
             </a>
-            <a className="text-white mx-5 flex items-center" href="/store">
+            {/* <a className="text-white mx-5 flex items-center" href="/store">
               {" "}
               Store{" "}
-            </a>
+            </a> */}
             {/* <a className="text-white mx-5 flex items-center" href="#">
               {" "}
               Contact us{" "}
@@ -120,10 +120,10 @@ export const Navbar = () => {
               {" "}
               Home{" "}
             </a>
-            <a onClick={menuClick} className="mx-5 text-white" href="/store">
+            {/* <a onClick={menuClick} className="mx-5 text-white" href="/store">
               {" "}
               Store{" "}
-            </a>
+            </a> */}
             {Object.keys(userData).length != 0 ? (
               <div>
                 <Button className="bg-white text-black hover:bg-black hover:text-white">

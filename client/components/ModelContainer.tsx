@@ -1,7 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { useClipboard } from "@/hooks/use-clipborad";
 import { useScreenShot } from "@/hooks/use-screenshot";
 import { Button } from "@/components/ui/button";
 import { IoCopy } from "react-icons/io5";
@@ -25,14 +24,12 @@ const StyledCopyButton = styled.button`
 `;
 
 const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
-  const [copied, setCopied] = useState(false);
   const [imageCopied, setImageCopied] = useState(false);
   const [userData, setUserData] = useState({});
-  const { copyTextToClipboard } = useClipboard();
   const { ref, image, getImage } = useScreenShot();
   const [updated, setUpdated] = useState(false);
   const [email, setEmail] = useState("");
-  const mounted = useRef(false); // Ref to track component mounting
+  const mounted = useRef(false);
 
   useEffect(() => {
     // Fetch user data
@@ -83,11 +80,34 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
     // Update user stats if userData is fetched and not updated yet
   }, [userData, updated]);
 
+  useEffect(() => {
+    // Copy image to clipboard when image state changes
+    const copyImageToClipboard = async () => {
+      if (image) {
+        try {
+          const res = await fetch(image);
+          const data = await res.blob();
+          await navigator.clipboard.write([
+            new ClipboardItem({ [data.type]: data }),
+          ]);
+
+          setImageCopied(true);
+          setTimeout(() => {
+            setImageCopied(false);
+          }, 2000);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    copyImageToClipboard();
+  }, [image]);
+
   return (
     <div>
       <div className="mx-auto flex h-full w-[95%] flex-col gap-10 pb-10 pt-8 font-mono">
         <div ref={ref} className="flex-[3] px-5 py-7" style={{}}>
-          <div className=" grid grid-flow-col grid-rows-6 justify-center gap-4 sm:grid-rows-4 sm:justify-normal lg:grid-rows-2 lg:justify-normal lg:gap-10 ">
+          <div className="grid grid-flow-col grid-rows-6 justify-center gap-4 sm:grid-rows-4 sm:justify-normal lg:grid-rows-2 lg:justify-normal lg:gap-10">
             <ResultCard
               title="wpm/cpm"
               tooltipId="wpm"
@@ -139,7 +159,7 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
 
         {/* Profile or Sign In/Sign Up Buttons */}
         <div className="flex text-center justify-center items-center">
-          {Object.keys(userData).length!=0 ? (
+          {Object.keys(userData).length !== 0 ? (
             <div>
               <Button
                 className="font-bold bg-white text-black hover:bg-black hover:text-white"
@@ -162,20 +182,10 @@ const ModalContent = ({ totalTime, history, results }: ModalContentProps) => {
         {/* Screenshot Button */}
         <div className="flex flex-[1] flex-col px-5">
           <div
-            className="group mt-auto flex cursor-pointer items-center gap-2 "
+            className="group mt-auto flex cursor-pointer items-center gap-2"
             onClick={async () => {
               try {
-                getImage();
-                const res = await fetch(image);
-                const data = await res.blob();
-                await navigator.clipboard.write([
-                  new ClipboardItem({ [data.type]: data }),
-                ]);
-
-                setImageCopied(true);
-                setTimeout(() => {
-                  setImageCopied(false);
-                }, 2000);
+                await getImage();
               } catch (error) {
                 console.log(error);
               }

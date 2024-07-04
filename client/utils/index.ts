@@ -11,7 +11,7 @@ export const isAllowedCode = (code: string): boolean => {
 };
 
 export const generateWord = (n: number): string => {
-  const words = generate(n);
+  const words = generate({ exactly: n, maxLength:6});
   var word = "";
   for(var i = 0; i < words.length; i++){
     word += words[i] + " ";
